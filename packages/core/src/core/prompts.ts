@@ -23,10 +23,11 @@ export function getCoreSystemPrompt(userMemory?: string): string {
   // default path is .gemini/system.md but can be modified via custom path in GEMINI_SYSTEM_MD
   let systemMdEnabled = false;
   let systemMdPath = path.join(GEMINI_CONFIG_DIR, 'system.md');
-  const systemMdVar = process.env.GEMINI_SYSTEM_MD?.toLowerCase();
-  if (systemMdVar && !['0', 'false'].includes(systemMdVar)) {
+  const systemMdVar = process.env.GEMINI_SYSTEM_MD
+  const systemMdVarLower = systemMdVar?.toLowerCase(); 
+  if (systemMdVarLower && systemMdVar && !['0', 'false'].includes(systemMdVarLower)) {
     systemMdEnabled = true; // enable system prompt override
-    if (!['1', 'true'].includes(systemMdVar)) {
+    if (!['1', 'true'].includes(systemMdVarLower)) {
       systemMdPath = systemMdVar; // use custom path from GEMINI_SYSTEM_MD
     }
     // require file to exist when override is enabled
